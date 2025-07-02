@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane fx:controller="com.example.unitransit.LoginController"
+            id="LoginPage"
+            xmlns="http://javafx.com/javafx/23.0.1"
+            xmlns:fx="http://javafx.com/fxml/1"
+            prefWidth="741" prefHeight="486"
+            style="-fx-background-color:white; -fx-border-color:#f74302; -fx-border-width:3; -fx-background-radius:20;">
+    <children>
+        <TextField fx:id="usernameField"
+                   layoutX="420" layoutY="149"
+                   prefWidth="214" prefHeight="35"
+                   promptText="UserName"
+                   style="-fx-background-radius:8; -fx-border-color:#186cd9; -fx-border-radius:8; -fx-border-width:2; -fx-text-fill:#f74302;">
+            <opaqueInsets><Insets/></opaqueInsets>
+        </TextField>
+        <PasswordField fx:id="passwordField"
+                       layoutX="420" layoutY="205"
+                       prefWidth="214" prefHeight="35"
+                       promptText="Password"
+                       style="-fx-background-radius:8; -fx-border-color:#186cd9; -fx-border-radius:8; -fx-border-width:2; -fx-text-fill:#f74302;"/>
+        <Button onAction="#onLoginClick"
+                layoutX="468" layoutY="262"
+                prefWidth="118" prefHeight="35"
+                text="Login"
+                style="-fx-background-color:#186cd9; -fx-background-radius:8;"
+                textFill="WHITE">
+            <font><Font name="System Bold" size="12"/></font>
+        </Button>
+        <Label fx:id="welcomeText"
+               layoutX="380" layoutY="400"
+               prefWidth="400"
+               style="-fx-font-size:14; -fx-text-fill:#186cd9;"/>
+        <ImageView fitWidth="400" fitHeight="300"
+                   layoutX="5" layoutY="110"
+                   pickOnBounds="true" preserveRatio="true">
+            <image><Image url="@/assets/image.png"/></image>
+        </ImageView>
+        <Text layoutX="432" layoutY="322"
+              wrappingWidth="136.5"
+              text="Don't have an account?"
+              fill="#186cd9"/>
+        <Button onAction="#onSignupClick"
+                layoutX="556" layoutY="305"
+                prefWidth="59" prefHeight="26"
+                text="Sign up"
+                style="-fx-background-color:white;"
+                textFill="#f74302">
+            <font><Font name="System Bold" size="12"/></font>
+        </Button>
+    </children>
+</AnchorPane>
