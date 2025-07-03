@@ -24,21 +24,12 @@ public class LoginController {
         String user = usernameField.getText();
         String pass = passwordField.getText();
 
-        if (UserService.authenticate(user, pass)) {
-            welcomeText.setText("خوش‌ آمدید به سامانهٔ حمل‌ونقل دانشگاه!");
-
-            Parent root = null;
-            try {
-                root = FXMLLoader.load(getClass().getResource("Settings.fxml"));
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-            Stage stage = (Stage)((javafx.scene.Node)event.getSource()).getScene().getWindow();
-            stage.setScene(new Scene(root));
-
-        } else {
-            welcomeText.setText("نام‌کاربری یا رمز عبور اشتباه است.");
-        }
+        //اینجا باید چک کنه نام کاربری و رمز قبلا ایجاد شده تو پایگاه داده یا نه. اگه شده بود اطلاعات رو کامل دریافت کنه و یک object جدید ایجاد کنه بعد وارد سیستم بشه
+//        if (){
+//
+//        }else {
+//
+//        }
     }
 
     @FXML
