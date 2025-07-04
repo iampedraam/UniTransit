@@ -118,7 +118,7 @@
       <version>${junit.version}</version>
       <scope>test</scope>
     </dependency>
-    <!-- JSON dependency -->
+    <!-- GSON dependency -->
     <dependency>
       <groupId>com.google.code.gson</groupId>
       <artifactId>gson</artifactId>
