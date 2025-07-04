@@ -2,7 +2,6 @@ package com.example.unitransit.model;
 
 public class University {
     int university_id;
-    String university_name;
     String name;
     public University(String name, int university_id) {
         this.name = name;
