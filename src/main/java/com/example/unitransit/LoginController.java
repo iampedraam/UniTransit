@@ -23,13 +23,7 @@ public class LoginController {
     private void onLoginClick(ActionEvent event) {
         String user = usernameField.getText();
         String pass = passwordField.getText();
-
-        //اینجا باید چک کنه نام کاربری و رمز قبلا ایجاد شده تو پایگاه داده یا نه. اگه شده بود اطلاعات رو کامل دریافت کنه و یک object جدید ایجاد کنه بعد وارد سیستم بشه
-//        if (){
-//
-//        }else {
-//
-//        }
+        
     }
 
     @FXML
