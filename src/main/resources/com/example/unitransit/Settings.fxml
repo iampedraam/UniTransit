@@ -13,43 +13,42 @@
 <AnchorPane fx:controller="com.example.unitransit.SettingsController" id="SettingsPage" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-border-color: #f74302; -fx-border-width: 3; -fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <ComboBox fx:id="GetOrigin" layoutX="40.0" layoutY="65.0" prefHeight="35.0" prefWidth="520.0" promptText="University of origin" style="-fx-background-radius: 8px; -fx-background-color: #ffffff; -fx-border-color: #186cd9; -fx-border-radius: 8px; -fx-border-width: 2; -fx-text-fill: #f74302;">
-         <items>
-            <FXCollections fx:factory="observableArrayList">
-               <String fx:value="University of Tehran" />
-               <String fx:value="University of Isfahan" />
-               <String fx:value="University of Guilan" />
-               <String fx:value="University of Shiraz" />
-               <String fx:value="Ferdowsi University of Mashhad" />
-               <String fx:value="Semnan University" />
-               <String fx:value="University of Mazandaran" />
-               <String fx:value="Sahand University of Technology" />
-               <String fx:value="Persian Gulf University" />
-            </FXCollections>
-         </items>
+<!--         <items>-->
+<!--            <FXCollections fx:factory="observableArrayList">-->
+<!--               <String fx:value="University of Tehran" />-->
+<!--               <String fx:value="University of Isfahan" />-->
+<!--               <String fx:value="University of Guilan" />-->
+<!--               <String fx:value="University of Shiraz" />-->
+<!--               <String fx:value="Ferdowsi University of Mashhad" />-->
+<!--               <String fx:value="University of Mazandaran" />-->
+<!--               <String fx:value="Sahand University of Technology" />-->
+<!--               <String fx:value="Persian Gulf University" />-->
+<!--            </FXCollections>-->
+<!--         </items>-->
 
       </ComboBox>
       <ComboBox fx:id="GetDestination" layoutX="40.0" layoutY="115.0" prefHeight="35.0" prefWidth="520.0" promptText="destination university" style="-fx-background-radius: 8px; -fx-background-color: #ffffff; -fx-border-color: #186cd9; -fx-border-radius: 8px; -fx-border-width: 2; -fx-text-fill: #f74302;">
-         <items>
-            <FXCollections fx:factory="observableArrayList">
-               <String fx:value="University of Tehran" />
-               <String fx:value="University of Isfahan" />
-               <String fx:value="University of Guilan" />
-               <String fx:value="University of Shiraz" />
-               <String fx:value="Ferdowsi University of Mashhad" />
-               <String fx:value="Semnan University" />
-               <String fx:value="University of Mazandaran" />
-               <String fx:value="Sahand University of Technology" />
-               <String fx:value="Persian Gulf University" />
-            </FXCollections>
-         </items>
+<!--         <items>-->
+<!--            <FXCollections fx:factory="observableArrayList">-->
+<!--               <String fx:value="University of Tehran" />-->
+<!--               <String fx:value="University of Isfahan" />-->
+<!--               <String fx:value="University of Guilan" />-->
+<!--               <String fx:value="University of Shiraz" />-->
+<!--               <String fx:value="Ferdowsi University of Mashhad" />-->
+<!--               <String fx:value="University of Mazandaran" />-->
+<!--               <String fx:value="Sahand University of Technology" />-->
+<!--               <String fx:value="Persian Gulf University" />-->
+<!--            </FXCollections>-->
+<!--         </items>-->
 
 
       </ComboBox>
-      <TextField fx:id="TimeMove" layoutX="40.0" layoutY="164.0" prefHeight="35.0" prefWidth="520.0" promptText="Time to move" style="-fx-background-radius: 8px; -fx-border-color: #186cd9; -fx-border-radius: 8px; -fx-border-width: 2; -fx-text-fill: #f74302;">
+      <ComboBox fx:id="Time" layoutX="40.0" layoutY="164.0" prefHeight="35.0" prefWidth="520.0" promptText="Time to move" style="-fx-background-radius: 8px; -fx-border-color: #186cd9; -fx-border-radius: 8px; -fx-border-width: 2; -fx-text-fill: #f74302;">
+
          <opaqueInsets>
             <Insets />
          </opaqueInsets>
-      </TextField>
+      </ComboBox>
       <Button onAction="#onGoClick" id="GoButton" layoutX="40.0" layoutY="331.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="520.0" style="-fx-background-color: #186cd9; -fx-background-radius: 8px;" text="Go" textFill="WHITE">
          <font>
             <Font name="System Bold" size="12.0" />

@@ -1,5 +1,6 @@
 package com.example.unitransit;
 
+import com.example.unitransit.model.Road;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -26,16 +27,21 @@ public class MapViewController {
     @FXML
     private ImageView iranMap;
 
-    private String origin;
-    private String destination;
-    private String time;
+    private int origin;
+    private int destination;
+    private int time;
+    private int fromId, toId, hour;
+    private Road selectedRoad;
 
-    private final Map<String, double[]> universityPositions = new HashMap<>();
+    private final Map<Integer, double[]> universityPositions = new HashMap<>();
+    private final Map<Integer, String> universityNames = new HashMap<>();
 
-    public void initData(String origin, String destination, String time) {
-        this.origin = origin;
-        this.destination = destination;
-        this.time = time;
+    public void initData(int originId, int destinationId, int hour, Road road) {
+        this.origin = originId;
+        this.destination = destinationId;
+        this.time = hour;
+        this.selectedRoad = road;
+
 
         setupUniversityPositions();
         drawUniversities();
@@ -43,39 +49,45 @@ public class MapViewController {
     }
 
     private void setupUniversityPositions() {
-        universityPositions.put("University of Tehran", new double[]{265, 170});
-        universityPositions.put("University of Isfahan", new double[]{270, 270});
-        universityPositions.put("University of Guilan", new double[]{210, 120});
-        universityPositions.put("University of Shiraz", new double[]{320, 435});
-        universityPositions.put("Ferdowsi University of Mashhad", new double[]{530, 150});
-        universityPositions.put("Semnan University", new double[]{355, 170});
-        universityPositions.put("University of Mazandaran", new double[]{320, 130});
-        universityPositions.put("Sahand University of Technology", new double[]{88, 83});
-        universityPositions.put("Persian Gulf University", new double[]{240, 420});
+        universityPositions.put(1, new double[]{210, 120}); // University of Guilan
+        universityPositions.put(2, new double[]{265, 170}); // University of Tehran
+        universityPositions.put(3, new double[]{270, 270}); // University of Isfahan
+        universityPositions.put(4, new double[]{320, 435}); // University of Shiraz
+        universityPositions.put(5, new double[]{530, 150}); // Ferdowsi University of Mashhad
+        universityPositions.put(6, new double[]{320, 130}); // University of Mazandaran
+        universityPositions.put(7, new double[]{88, 83});   // University of Tabriz
+
+        universityNames.put(1, "University of Guilan");
+        universityNames.put(2, "University of Tehran");
+        universityNames.put(3, "University of Isfahan");
+        universityNames.put(4, "University of Shiraz");
+        universityNames.put(5, "Ferdowsi University of Mashhad");
+        universityNames.put(6, "University of Mazandaran");
+        universityNames.put(7, "University of Tabriz");
     }
 
     private void drawUniversities() {
-        for (Map.Entry<String, double[]> entry : universityPositions.entrySet()) {
+        for (Map.Entry<Integer, double[]> entry : universityPositions.entrySet()) {
+            int uniId = entry.getKey();
             double[] pos = entry.getValue();
-            String name = entry.getKey();
 
             Circle circle = new Circle(pos[0], pos[1], 7, Color.ORANGE);
             circle.setStroke(Color.DARKBLUE);
             circle.setStrokeWidth(2);
 
+            // دریافت نام از Map
+            String name = universityNames.getOrDefault(uniId, "University ID: " + uniId);
             Tooltip tooltip = new Tooltip(name);
             Tooltip.install(circle, tooltip);
 
-            // Hover effect: بزرگ شدن
             circle.setOnMouseEntered(e -> {
-                circle.setRadius(10); // بزرگتر شدن دایره
-                circle.setFill(Color.DARKORANGE); // تغییر رنگ دلخواه
+                circle.setRadius(10);
+                circle.setFill(Color.DARKORANGE);
             });
 
-            // بازگشت به حالت اولیه
             circle.setOnMouseExited(e -> {
-                circle.setRadius(7); // اندازه اولیه
-                circle.setFill(Color.ORANGE); // رنگ اولیه
+                circle.setRadius(7);
+                circle.setFill(Color.ORANGE);
             });
 
             mapPane.getChildren().add(circle);
@@ -88,8 +100,19 @@ public class MapViewController {
 
         if (start != null && end != null) {
             Line line = new Line(start[0], start[1], end[0], end[1]);
-            line.setStroke(Color.BLUE);
-            line.setStrokeWidth(3);
+
+            if (selectedRoad != null) {
+                // بررسی باز بودن مسیر در ساعت انتخاب شده
+                boolean isOpen = time >= selectedRoad.getOpen() && time <= selectedRoad.getClose();
+
+                // تنظیم رنگ و توضیح مسیر
+                line.setStroke(isOpen ? Color.BLUE : Color.ORANGE);
+                line.setStrokeWidth(4);
+
+            } else {
+                line.setStroke(Color.GRAY);
+                line.setStrokeWidth(3);
+            }
 
             mapPane.getChildren().add(line);
         }
