@@ -59,12 +59,20 @@ public class Datamanagement {
 
     public List<Road> loadRoads() {
         try (FileReader reader = new FileReader(ROADS_FILE)) {
-            Type roadListType = new TypeToken<List<Road>>() {
-            }.getType();
-            return gson.fromJson(reader, roadListType);
+            Type roadListType = new TypeToken<List<Road>>() {}.getType();
+            List<Road> roads = gson.fromJson(reader, roadListType);
+            //Generate IDs
+            if (roads != null) {
+                for (Road road : roads) {
+                    // assuming Road has setId(int) method
+                    road.setId(road.getFrom() * 10 + road.getTo());
+                }
+            }
+            return roads != null ? roads : new ArrayList<>();
         } catch (IOException e) {
             System.out.println("Error loading roads file");
             return new ArrayList<>();
         }
     }
+
 }
