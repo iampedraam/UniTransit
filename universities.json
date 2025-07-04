@@ -1,0 +1,30 @@
+[
+  {
+    "name": "University of Guilan",
+    "university_id": "1"
+  },
+  {
+    "name": "University of Tehran",
+    "university_id": "2"
+  },
+  {
+    "name": "University of Isfahan",
+    "university_id": "3"
+  },
+  {
+    "name": "University of Shiraz",
+    "university_id": "4"
+  },
+  {
+    "name": "Ferdowsi University of Mashhad",
+    "university_id": "5"
+  },
+  {
+    "name": "University of Mazandaran",
+    "university_id": "6"
+  },
+  {
+    "name": "University of Tabriz",
+    "university_id": "7"
+  }
+]
