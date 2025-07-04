@@ -109,6 +109,16 @@ public class MapViewController {
                 line.setStroke(isOpen ? Color.BLUE : Color.ORANGE);
                 line.setStrokeWidth(4);
 
+                Tooltip tooltip = new Tooltip(
+                        "Price: " + selectedRoad.getPrice() + "\n" +
+                                "capacity: " + selectedRoad.getCapacity() + "\n" +
+                                "Time: " + selectedRoad.getOpen() + " - " + selectedRoad.getClose() + "\n" +
+                                (isOpen ? "🟢 The road is open." : "🔴 The road is blocked.")
+                );
+                Tooltip.install(line, tooltip);
+
+
+
             } else {
                 line.setStroke(Color.GRAY);
                 line.setStrokeWidth(3);
