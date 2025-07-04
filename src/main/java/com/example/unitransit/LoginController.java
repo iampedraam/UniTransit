@@ -2,6 +2,9 @@ package com.example.unitransit;
 
 // src/main/java/com/example/unitransit/LoginController.java
 
+import com.example.unitransit.model.AppData;
+import com.example.unitransit.model.Road;
+import com.example.unitransit.model.University;
 import javafx.event.ActionEvent;
 import com.example.unitransit.Datamanagement;
 import com.example.unitransit.model.Student;
@@ -52,6 +55,14 @@ public class LoginController {
         }
 
         if (isFound) {
+            //Load
+            List<University> universities = datamanagement.loadUniversity();
+            List<Road> roads = datamanagement.loadRoads();
+
+            //For access in other classes
+            AppData.setUniversities(universities);
+            AppData.setRoads(roads);
+
             welcomeText.setText("Welcome " + user);
             Parent root = null;
             try {
