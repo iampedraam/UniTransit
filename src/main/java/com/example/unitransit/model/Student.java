@@ -10,7 +10,9 @@ public class Student {
         return password;
     }
 
-    public Student (String username, String password, String firstName, String lastName, String studentID, String uni, String phone) {
+    public Student (String username, String password,
+                    String firstName, String lastName, String studentID,
+                    String uni, String phone) {
         this.username = username;
         this.password = password;
         this.firstName = firstName;
