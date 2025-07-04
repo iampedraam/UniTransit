@@ -7,12 +7,17 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
+<?import javafx.scene.control.Label?>
 <AnchorPane fx:controller="com.example.unitransit.SignupController"
             xmlns="http://javafx.com/javafx/23.0.1"
             xmlns:fx="http://javafx.com/fxml/1"
             prefWidth="741.0" prefHeight="486.0"
             style="-fx-border-color:#f74302; -fx-border-width:3; -fx-background-color:white;">
    <children>
+      <Label fx:id="welcomeText"
+             layoutX="94" layoutY="300"
+             prefWidth="500"
+             style="-fx-font-size:14; -fx-text-fill:#f74302;"/>
       <Text fx:id="TextSignup"
             layoutX="122.0" layoutY="108.0"
             wrappingWidth="281.3367"

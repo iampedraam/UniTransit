@@ -6,6 +6,7 @@ import com.example.unitransit.Datamanagement;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -14,6 +15,7 @@ import javafx.scene.Scene;
 import javafx.fxml.FXMLLoader;
 
 import javax.xml.crypto.Data;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,6 +27,7 @@ public class SignupController {
     @FXML private TextField StudentNumber;
     @FXML private TextField UserName;
     @FXML private PasswordField Password;
+    @FXML private Label welcomeText;
 
     private Datamanagement datamanagement;
     public void initialize() {
@@ -44,7 +47,7 @@ public class SignupController {
         if (firstNameText.isEmpty() || lastNameText.isEmpty() || phoneNumberText.isEmpty() ||
                 universityText.isEmpty() || studentNumberText.isEmpty() ||
                 userNameText.isEmpty() || passwordText.isEmpty()) {
-            //متن ارور بده که همه فیلدها رو پر کن (آرمیتا) :TASK
+            welcomeText.setText("Some fields are empty. Please fill out the form completely.");
             return;
         }
 
@@ -60,7 +63,7 @@ public class SignupController {
             }
         }
         if (studentExists) {
-            //TASK: متن تکراری بودن username (آرمیتا)
+            welcomeText.setText("This username is already taken. Please choose a different username.");
             return;
         }
         Student st = new Student(
@@ -76,12 +79,20 @@ public class SignupController {
         students.add(st);
         datamanagement.saveStudents(students);
 
-        //TASK: آرمیتا پیام موفقیت ثبت نام بده بعد بره توی ورود
+        welcomeText.setText("Registration completed successfully!");
+        welcomeText.setStyle("-fx-text-fill: #186cd9;");
 
-        // بعد از ثبت‌نام مستقیم بازگردیم به صفحه ورود
-        Parent root = FXMLLoader.load(getClass().getResource("Login.fxml"));
-        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        stage.setScene(new Scene(root));
+        javafx.animation.PauseTransition delay = new javafx.animation.PauseTransition(javafx.util.Duration.seconds(2));
+        delay.setOnFinished(e -> {
+            try {
+                Parent root = FXMLLoader.load(getClass().getResource("Login.fxml"));
+                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                stage.setScene(new Scene(root));
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        });
+        delay.play();
     }
 
     @FXML

@@ -36,6 +36,7 @@ public class LoginController {
 
         if (user.isEmpty() || pass.isEmpty()) {
             //TASK: پیام خطای خالی بودن نام کاربری یا رمز عبور
+            welcomeText.setText("Username or password not entered.");
             return;
         }
 
@@ -54,6 +55,14 @@ public class LoginController {
         if (isFound) {
             welcomeText.setText("Welcome " + user);
             //TASK: بره تو صفحه بعدی
+            Parent root = null;
+            try {
+                root = FXMLLoader.load(getClass().getResource("Settings.fxml"));
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            Stage stage = (Stage)((javafx.scene.Node)event.getSource()).getScene().getWindow();
+            stage.setScene(new Scene(root));
         }
 
     }
