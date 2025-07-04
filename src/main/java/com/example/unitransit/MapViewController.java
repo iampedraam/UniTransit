@@ -117,8 +117,6 @@ public class MapViewController {
                 );
                 Tooltip.install(line, tooltip);
 
-
-
             } else {
                 line.setStroke(Color.GRAY);
                 line.setStrokeWidth(3);
