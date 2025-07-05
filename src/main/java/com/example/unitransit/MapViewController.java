@@ -96,37 +96,69 @@ public class MapViewController {
     }
 
     private void drawRouteBetweenUniversities() {
-        double[] start = universityPositions.get(origin);
-        double[] end = universityPositions.get(destination);
+        if (path == null || path.isEmpty()) return;
 
-        if (start != null && end != null) {
+        for (Road road : path) {
+            double[] start = universityPositions.get(road.getFrom());
+            double[] end = universityPositions.get(road.getTo());
+
+            if (start == null || end == null) continue;
+
             Line line = new Line(start[0], start[1], end[0], end[1]);
 
-            // Task: باید تک تک جاده های path بررسی بشه
-            if (selectedRoad != null) {
-                // بررسی باز بودن مسیر در ساعت انتخاب شده
-                boolean isOpen = time >= selectedRoad.getOpen() && time <= selectedRoad.getClose();
+            boolean isOpen = time >= road.getOpen() && time <= road.getClose();
+            line.setStroke(isOpen ? Color.BLUE : Color.GRAY);
+            line.setStrokeWidth(4);
 
-                // تنظیم رنگ و توضیح مسیر
-                line.setStroke(isOpen ? Color.BLUE : Color.ORANGE);
-                line.setStrokeWidth(4);
-
-                Tooltip tooltip = new Tooltip(
-                        "Price: " + selectedRoad.getPrice() + "\n" +
-                                "capacity: " + selectedRoad.getCapacity() + "\n" +
-                                "Time: " + selectedRoad.getOpen() + " - " + selectedRoad.getClose() + "\n" +
-                                (isOpen ? "🟢 The road is open." : "🔴 The road is blocked.")
-                );
-                Tooltip.install(line, tooltip);
-
-            } else {
-                line.setStroke(Color.GRAY);
-                line.setStrokeWidth(3);
-            }
+            Tooltip tooltip = new Tooltip(
+                    "From: " + universityNames.getOrDefault(road.getFrom(), "ID " + road.getFrom()) + "\n" +
+                            "To: " + universityNames.getOrDefault(road.getTo(), "ID " + road.getTo()) + "\n" +
+                            "Price: " + road.getPrice() + "\n" +
+                            "Capacity: " + road.getCapacity() + "\n" +
+                            "Time Window: " + road.getOpen() + " - " + road.getClose() + "\n" +
+                            (isOpen ? "🟢 Road is open" : "🔴 Road is closed")
+            );
+            Tooltip.install(line, tooltip);
 
             mapPane.getChildren().add(line);
         }
     }
+
+
+
+
+//    private void drawRouteBetweenUniversities() {
+//        double[] start = universityPositions.get(origin);
+//        double[] end = universityPositions.get(destination);
+//
+//        if (start != null && end != null) {
+//            Line line = new Line(start[0], start[1], end[0], end[1]);
+//
+//            // Task: باید تک تک جاده های path بررسی بشه
+//            if (selectedRoad != null) {
+//                // بررسی باز بودن مسیر در ساعت انتخاب شده
+//                boolean isOpen = time >= selectedRoad.getOpen() && time <= selectedRoad.getClose();
+//
+//                // تنظیم رنگ و توضیح مسیر
+//                line.setStroke(isOpen ? Color.BLUE : Color.ORANGE);
+//                line.setStrokeWidth(4);
+//
+//                Tooltip tooltip = new Tooltip(
+//                        "Price: " + selectedRoad.getPrice() + "\n" +
+//                                "capacity: " + selectedRoad.getCapacity() + "\n" +
+//                                "Time: " + selectedRoad.getOpen() + " - " + selectedRoad.getClose() + "\n" +
+//                                (isOpen ? "🟢 The road is open." : "🔴 The road is blocked.")
+//                );
+//                Tooltip.install(line, tooltip);
+//
+//            } else {
+//                line.setStroke(Color.GRAY);
+//                line.setStrokeWidth(3);
+//            }
+//
+//            mapPane.getChildren().add(line);
+//        }
+//    }
 
     @FXML
     private void onBackClick(ActionEvent event) {

@@ -58,21 +58,6 @@ public class SettingsController {
         }
     }
 
-    public List<Road> loadRoadsFromJson() {
-        try {
-            InputStream input = getClass().getResourceAsStream("/roads.json"); // 👈 یا فایل مسیرها
-            assert input != null;
-            InputStreamReader reader = new InputStreamReader(input);
-            Type listType = new TypeToken<List<Road>>() {}.getType();
-            return new Gson().fromJson(reader, listType);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return List.of();
-        }
-    }
-
-
-
     @FXML
     private void onGoClick(ActionEvent event) {
         try {
@@ -101,8 +86,6 @@ public class SettingsController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
     }
 
     @FXML
