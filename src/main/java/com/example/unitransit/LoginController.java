@@ -2,12 +2,8 @@ package com.example.unitransit;
 
 // src/main/java/com/example/unitransit/LoginController.java
 
-import com.example.unitransit.model.AppData;
-import com.example.unitransit.model.Road;
-import com.example.unitransit.model.University;
+import com.example.unitransit.model.*;
 import javafx.event.ActionEvent;
-import com.example.unitransit.Datamanagement;
-import com.example.unitransit.model.Student;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -18,8 +14,8 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class LoginController {
     @FXML private TextField usernameField;
@@ -57,11 +53,21 @@ public class LoginController {
         if (isFound) {
             //Load
             List<University> universities = datamanagement.loadUniversity();
-            List<Road> roads = datamanagement.loadRoads();
 
-            //For access in other classes
             AppData.setUniversities(universities);
-            AppData.setRoads(roads);
+
+            boolean can=false;
+            while (can==false){
+                List<Road> roads = Road.randomRoads(universities, 0.2, new Random());
+                Graph graph = new Graph(universities, roads);
+                AppData.setRoads(roads);
+                if (graph.allPairsWithinTwoStops()){
+                    can=true;
+                    //graph has all the random roads
+                    Graph mstGraph=new Graph(universities,graph.computeMST());
+                    //mstGraph has only the MST Routes
+                }
+            }
 
             welcomeText.setText("Welcome " + user);
             Parent root = null;

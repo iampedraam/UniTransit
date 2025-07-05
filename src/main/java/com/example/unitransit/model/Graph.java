@@ -41,7 +41,7 @@ public class Graph {
         return mst;
     }
 
-    public List<Road> suggestBestRoute(int srcId, int dstId) {
+    public List<Road> bestRoute(int srcId, int dstId) {
         List<Road> path = shortestPath(srcId, dstId);
         if (path.isEmpty()) {
             System.out.println("No path with capacity found!!!!");
@@ -84,14 +84,8 @@ public class Graph {
         }
         return path;
     }
-    private void addUniversity(University u) {
-        nodes.putIfAbsent(u.getUniversityId(), u);
-        adj.putIfAbsent(u.getUniversityId(), new ArrayList<>());
-    }
-    private void addRoad(Road r) {
-        addEdgeInternal(r);
-    }
-    private boolean allPairsWithinTwoStops() {
+
+    public boolean allPairsWithinTwoStops() {
         for (int a : nodes.keySet()) {
             if (!bfsTwoHop(a)) return false;
         }
@@ -116,5 +110,4 @@ public class Graph {
         }
         return dist.size() == nodes.size();
     }
-
 }

@@ -3,6 +3,8 @@ package com.example.unitransit.model;
 import java.util.List;
 
 public class AppData {
+    //For Access inside the program
+
     private static List<Road> roads;
     private static List<University> universities;
 

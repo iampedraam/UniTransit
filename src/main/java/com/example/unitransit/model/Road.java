@@ -25,6 +25,9 @@ public class Road {
     public int getId() { return id; }
     public int getCapacity() { return capacity; }
     public boolean hasCapacity() { return capacity > 0; }
+    public void decreaseCapacity() {
+        capacity--;
+    }
     public boolean canReserve(){
         if (capacity == 0)
             return false;
@@ -36,13 +39,13 @@ public class Road {
     public int getClose() { return close; }
 
 
-    public static List<Road> randomGraph(List<University> universities, double density, Random rng) {
+    public static List<Road> randomRoads(List<University> universities, double density, Random rng) {
         final int n = universities.size();
         List<Road> roads = new ArrayList<>();
 
         for (int i = 1; i < n; i++) {
             int parent = rng.nextInt(i);
-            roads.add((Road) makeBidirectional(universities.get(parent).getUniversityId(),
+            roads.addAll(makeBidirectional(universities.get(parent).getUniversityId(),
                     universities.get(i).getUniversityId(), rng));
         }
         for (int i = 0; i < n; i++) {
@@ -60,9 +63,8 @@ public class Road {
         int capacity = 1 + rng.nextInt(11);        // 1‑11
         int price    = 100  + rng.nextInt(51);
         int open     = 7  + rng.nextInt(6);
-        int close    = 17 - rng.nextInt(7);
+        int close    = 15 + rng.nextInt(6);
 
-        //جاده رفت و برگشتی
         List<Road> pair = new ArrayList<>(2);
         pair.add(new Road(a, b, capacity, price, open, close));
         pair.add(new Road(b, a, capacity, price, open, close));

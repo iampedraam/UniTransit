@@ -19,7 +19,6 @@ public class Datamanagement {
     private static final String USERS_FILE = "users.json";
     private static final String UNI_FILE = "universities.json";
     private static final String ROADS_FILE = "roads.json";
-
     private final Gson gson;
 
     public Datamanagement() {
@@ -36,7 +35,6 @@ public class Datamanagement {
             return new ArrayList<>();
         }
     }
-
     public void saveStudents(List<Student> students) {
         try (FileWriter writer = new FileWriter(USERS_FILE)) {
             gson.toJson(students, writer);
@@ -56,23 +54,4 @@ public class Datamanagement {
             return new ArrayList<>();
         }
     }
-
-    public List<Road> loadRoads() {
-        try (FileReader reader = new FileReader(ROADS_FILE)) {
-            Type roadListType = new TypeToken<List<Road>>() {}.getType();
-            List<Road> roads = gson.fromJson(reader, roadListType);
-            //Generate IDs
-            if (roads != null) {
-                for (Road road : roads) {
-                    // assuming Road has setId(int) method
-                    road.setId(road.getFrom() * 10 + road.getTo());
-                }
-            }
-            return roads != null ? roads : new ArrayList<>();
-        } catch (IOException e) {
-            System.out.println("Error loading roads file");
-            return new ArrayList<>();
-        }
-    }
-
 }

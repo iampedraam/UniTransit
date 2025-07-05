@@ -17,6 +17,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class MapViewController {
@@ -31,16 +32,16 @@ public class MapViewController {
     private int destination;
     private int time;
     private int fromId, toId, hour;
-    private Road selectedRoad;
+    private List<Road> path;
 
     private final Map<Integer, double[]> universityPositions = new HashMap<>();
     private final Map<Integer, String> universityNames = new HashMap<>();
 
-    public void initData(int originId, int destinationId, int hour, Road road) {
+    public void initData(int originId, int destinationId, int hour, List<Road> path) {
         this.origin = originId;
         this.destination = destinationId;
         this.time = hour;
-        this.selectedRoad = road;
+        this.path = path;
 
 
         setupUniversityPositions();
@@ -101,6 +102,7 @@ public class MapViewController {
         if (start != null && end != null) {
             Line line = new Line(start[0], start[1], end[0], end[1]);
 
+            // Task: باید تک تک جاده های path بررسی بشه
             if (selectedRoad != null) {
                 // بررسی باز بودن مسیر در ساعت انتخاب شده
                 boolean isOpen = time >= selectedRoad.getOpen() && time <= selectedRoad.getClose();

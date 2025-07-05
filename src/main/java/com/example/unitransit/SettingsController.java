@@ -1,5 +1,7 @@
 package com.example.unitransit;
 
+import com.example.unitransit.model.AppData;
+import com.example.unitransit.model.Graph;
 import com.example.unitransit.model.University;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -88,16 +90,9 @@ public class SettingsController {
                 int toId = destination.getUniversityId();
 
                 // پیدا کردن مسیر مناسب
-                List<Road> roads = loadRoadsFromJson();
-                Road selectedRoad = null;
-                for (Road r : roads) {
-                    if (r.getFrom() == fromId && r.getTo() == toId) {
-                        selectedRoad = r;
-                        break;
-                    }
-                }
-
-                controller.initData(fromId, toId, hour, selectedRoad); // ارسال مسیر به کنترلر جدید
+                Graph graph = new Graph(AppData.getUniversities(), AppData.getRoads());
+                List<Road> path = graph.bestRoute(fromId, toId);
+                controller.initData(fromId, toId, hour, path);
             }
 
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
