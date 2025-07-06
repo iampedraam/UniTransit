@@ -28,4 +28,7 @@ public class Reservation {
     public Student    getStudent()   { return student;   }
     public List<Road> getPath()      { return path;      }
     public int        getTotalCost() { return totalCost; }
+    public int getFrom() { return from; }
+    public int getTo() { return to; }
+
 }

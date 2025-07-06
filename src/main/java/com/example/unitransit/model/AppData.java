@@ -9,6 +9,7 @@ public class AppData {
     private static List<University> universities;
     private static Graph graph;
     private static List<Road> shortestPath;
+    private static ReservationService reservationService;
 
     public static List<Road> getRoads() {
         return roads;
@@ -37,4 +38,7 @@ public class AppData {
     public static void setShortestPath(List<Road> shortestPath) {
         AppData.shortestPath = shortestPath;
     }
+
+    public static ReservationService getReservationService() { return reservationService; }
+    public static void setReservationService(ReservationService service) { reservationService = service; }
 }

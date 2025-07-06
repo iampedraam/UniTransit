@@ -77,14 +77,21 @@ public class LoginController {
             }
 
             welcomeText.setText("Welcome " + user);
-            Parent root = null;
+//            Parent root = null;
             try {
-                root = FXMLLoader.load(getClass().getResource("Settings.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("Settings.fxml"));
+                Parent root = loader.load();
+
+                SettingsController controller = loader.getController();
+                controller.setStudent(loggedStudent); // اینجا student لاگین‌شده رو می‌فرستی
+
+                Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
+                stage.setScene(new Scene(root));
+                stage.show(); // فراموش نشه
             } catch (IOException e) {
-                throw new RuntimeException(e);
+                e.printStackTrace();
             }
-            Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
-            stage.setScene(new Scene(root));
+
         }
 
     }

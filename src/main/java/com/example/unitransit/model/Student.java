@@ -21,4 +21,5 @@ public class Student {
         this.uni = uni;
         this.phone = phone;
     }
+
 }

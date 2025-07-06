@@ -28,7 +28,13 @@
         </font>
     </Button>
 
-    <Button onAction="#onBackClick" fx:id="reservation" layoutX="60.0" layoutY="562.0" mnemonicParsing="false" style="-fx-background-color: #E0E0E0;"  text="RESERVATION" textFill="#f74302">
+    <Button onAction="#onReservationClick" fx:id="reservation" layoutX="60.0" layoutY="562.0" mnemonicParsing="false" style="-fx-background-color: #E0E0E0;"  text="RESERVATION" textFill="#f74302">
+        <font>
+            <Font name="System Bold" size="12.0" />
+        </font>
+    </Button>
+
+    <Button  onAction="#onViewReservationsClick" layoutX="500" layoutY="20" style="-fx-background-color: #E0E0E0;"  text="VIEW RESERVATIONS" textFill="#f74302">
         <font>
             <Font name="System Bold" size="12.0" />
         </font>

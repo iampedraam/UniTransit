@@ -1,8 +1,6 @@
 package com.example.unitransit;
 
-import com.example.unitransit.model.AppData;
-import com.example.unitransit.model.Graph;
-import com.example.unitransit.model.University;
+import com.example.unitransit.model.*;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import javafx.event.ActionEvent;
@@ -14,7 +12,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import com.example.unitransit.model.Road;
 
 
 import java.io.IOException;
@@ -33,6 +30,13 @@ public class SettingsController {
 
     @FXML
     private ComboBox<Integer> Time;
+
+    private Student currentStudent;
+
+    public void setStudent(Student student) {
+        this.currentStudent = student;
+    }
+
 
     public List<University> loadUniversitiesFromJson() {
         try {
@@ -74,11 +78,21 @@ public class SettingsController {
                 int fromId = origin.getUniversityId();
                 int toId = destination.getUniversityId();
 
-                // پیدا کردن مسیر مناسب
                 List<Road> path = AppData.getGraph().bestRoute(fromId, toId);
                 AppData.setShortestPath(path);
-                controller.initData(fromId, toId, hour, path);
+
+                // فقط اگر هنوز ReservationService ساخته نشده، بساز و ذخیره کن
+                if (AppData.getReservationService() == null) {
+                    AppData.setReservationService(
+                            new ReservationService(AppData.getUniversities(), AppData.getRoads())
+                    );
+                }
+
+                ReservationService reservationService = AppData.getReservationService();
+
+                controller.initData(currentStudent, fromId, toId, hour, path, reservationService);
             }
+
 
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root));
@@ -87,6 +101,7 @@ public class SettingsController {
             e.printStackTrace();
         }
     }
+
 
     @FXML
     private void onBackClick(ActionEvent event) {
