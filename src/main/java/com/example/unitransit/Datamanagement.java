@@ -18,7 +18,6 @@ import java.util.List;
 public class Datamanagement {
     private static final String USERS_FILE = "users.json";
     private static final String UNI_FILE = "universities.json";
-    private static final String ROADS_FILE = "roads.json";
     private final Gson gson;
 
     public Datamanagement() {
