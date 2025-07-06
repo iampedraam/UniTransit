@@ -58,13 +58,6 @@ public class LoginController {
 
             boolean done = false;
             while (!done) {
-                //for debug
-                for (University u : universities) {
-                    System.out.println("University loaded: ID = " + u.getUniversityId() + ", Name = " + u.getName());
-                }
-                for (Road r : roads) {
-                    System.out.println("Road: " + r.getFrom() + " -> " + r.getTo());
-                }
                 Graph graph = new Graph(universities, roads);
                 if (graph.allPairsWithinTwoStops()) {
                     done = true;
