@@ -18,13 +18,16 @@ import java.util.List;
 import java.util.Random;
 
 public class LoginController {
-    @FXML private TextField usernameField;
-    @FXML private PasswordField passwordField;
-    @FXML private Label welcomeText;
+    @FXML
+    private TextField usernameField;
+    @FXML
+    private PasswordField passwordField;
+    @FXML
+    private Label welcomeText;
 
     private Datamanagement datamanagement;
 
-    public void initialize(){
+    public void initialize() {
         datamanagement = new Datamanagement();
     }
 
@@ -54,14 +57,23 @@ public class LoginController {
             //Load
             List<University> universities = datamanagement.loadUniversity();
             AppData.setUniversities(universities);
+
             List<Road> roads = Road.generateFixedRoads(new Random());
-            Graph fullGraph = new Graph(universities, roads);
-            List<Road> mstEdges = fullGraph.computeMST();
-            Graph mstGraph = new Graph(universities, mstEdges);
-            if (mstGraph.allPairsWithinTwoStops()) {
-                AppData.setGraph(mstGraph);
-            } else {
-                AppData.setGraph(fullGraph);
+            boolean found = false;
+            while (!found) {
+                Graph fullGraph = new Graph(universities, roads);
+
+                List<Road> mstEdges = fullGraph.computeMST();
+                Graph mstGraph = new Graph(universities, mstEdges);
+
+                if (mstGraph.allPairsWithinTwoStops() || fullGraph.allPairsWithinTwoStops()) {
+                    if (mstGraph.allPairsWithinTwoStops()) {
+                        AppData.setGraph(mstGraph);
+                    } else {
+                        AppData.setGraph(fullGraph);
+                    }
+                    found = true;
+                }
             }
 
             welcomeText.setText("Welcome " + user);
@@ -71,7 +83,7 @@ public class LoginController {
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-            Stage stage = (Stage)((javafx.scene.Node)event.getSource()).getScene().getWindow();
+            Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root));
         }
 
