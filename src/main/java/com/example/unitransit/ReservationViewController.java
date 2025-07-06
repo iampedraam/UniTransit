@@ -12,6 +12,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import java.io.IOException;
 import java.net.URL;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.HashMap;
@@ -32,6 +33,9 @@ public class ReservationViewController implements Initializable {
     private TableColumn<Reservation, String> toColumn;
     @FXML
     private TableColumn<Reservation, Integer> costColumn;
+    @FXML
+    private TableColumn<Reservation, String> timeColumn;
+
 
     private ReservationService reservationService;
     private Student currentStudent;
@@ -63,9 +67,14 @@ public class ReservationViewController implements Initializable {
         idColumn.setCellValueFactory(data -> new javafx.beans.property.SimpleIntegerProperty(data.getValue().getId()).asObject());
         studentColumn.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getStudent().getUsername()));
         costColumn.setCellValueFactory(data -> new javafx.beans.property.SimpleIntegerProperty(data.getValue().getTotalCost()).asObject());
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+        timeColumn.setCellValueFactory(data ->
+                new SimpleStringProperty(data.getValue().getReserveTime().format(formatter)));
+
+
 
         reservationService = AppData.getReservationService();
-        setupUniversityNames(); // ← اضافه شده
+        setupUniversityNames();
 
         fromColumn.setCellValueFactory(data -> {
             int fromId = data.getValue().getFrom();
@@ -78,6 +87,11 @@ public class ReservationViewController implements Initializable {
             String name = universityNames.getOrDefault(toId, "Unknown");
             return new SimpleStringProperty(name);
         });
+
+        reservationTable.getItems().setAll(reservationService.getAllReservations());
+        timeColumn.setSortType(TableColumn.SortType.ASCENDING);
+        reservationTable.getSortOrder().add(timeColumn);
+        reservationTable.sort();
 
         if (reservationService != null) {
             reservationTable.getItems().setAll(reservationService.getAllReservations());

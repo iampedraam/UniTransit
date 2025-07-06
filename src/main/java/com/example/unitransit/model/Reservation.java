@@ -30,5 +30,7 @@ public class Reservation {
     public int        getTotalCost() { return totalCost; }
     public int getFrom() { return from; }
     public int getTo() { return to; }
+    public LocalDateTime getReserveTime() { return reserveTime; }
+
 
 }
