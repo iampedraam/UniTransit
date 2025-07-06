@@ -7,11 +7,11 @@ public class AppData {
 
     private static List<Road> roads;
     private static List<University> universities;
+    private static Graph graph;
 
     public static List<Road> getRoads() {
         return roads;
     }
-
     public static void setRoads(List<Road> roads) {
         AppData.roads = roads;
     }
@@ -19,8 +19,14 @@ public class AppData {
     public static List<University> getUniversities() {
         return universities;
     }
-
     public static void setUniversities(List<University> universities) {
         AppData.universities = universities;
+    }
+
+    public static Graph getGraph() {
+        return graph;
+    }
+    public static void setGraph(Graph graph) {
+        AppData.graph = graph;
     }
 }

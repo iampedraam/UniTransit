@@ -53,16 +53,15 @@ public class LoginController {
         if (isFound) {
             //Load
             List<University> universities = datamanagement.loadUniversity();
-
             AppData.setUniversities(universities);
+            List<Road> roads = Road.generateFixedRoads(new Random());
 
             boolean done = false;
             while (!done) {
-                List<Road> roads = Road.generateFixedRoads(new Random());
-                Graph graph      = new Graph(universities, roads);
+                Graph graph = new Graph(universities, roads);
                 if (graph.allPairsWithinTwoStops()) {
                     done = true;
-                    AppData.setRoads(roads);
+                    AppData.setGraph(graph);
                 }
             }
 

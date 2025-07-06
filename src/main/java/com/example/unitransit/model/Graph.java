@@ -42,45 +42,65 @@ public class Graph {
     }
 
     public List<Road> bestRoute(int srcId, int dstId) {
-        List<Road> path = shortestPath(srcId, dstId);
+        List<Road> path = shortestPath(srcId, dstId, 3);
         if (path.isEmpty()) {
-            System.out.println("No path with capacity found!!!!");
-            return List.of();
+            System.out.println("No path with capacity found!");
         }
         return path;
     }
-    private List<Road> shortestPath(int src, int dst) {
-        record State(int node, int cost) {}
-        Map<Integer,Integer> dist = new HashMap<>();
-        Map<Integer,Road>    prev = new HashMap<>();
-        PriorityQueue<State> pq   = new PriorityQueue<>(Comparator.comparingInt(State::cost));
+    //Find Shortest Path by min expense and check capacity
+    private List<Road> shortestPath(int src, int dst, int maxStops) {
+        record State(int node, int cost, int hops) {}
+        Map<Integer, int[]> dist = new HashMap<>();
+        Map<String, Road>   prev = new HashMap<>();
+        PriorityQueue<State> pq  = new PriorityQueue<>(Comparator.comparingInt(State::cost));
 
-        dist.put(src, 0);
-        pq.add(new State(src, 0));
+        dist.put(src, new int[]{0, Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE});
+        pq.add(new State(src, 0, 0));
 
         while (!pq.isEmpty()) {
             State cur = pq.poll();
-            if (cur.node == dst) break;  //got to destination
-            if (cur.cost != dist.get(cur.node)) continue;
+            if (cur.node == dst) break;
+            if (cur.hops == maxStops) continue;
 
             for (Road r : neighbors(cur.node)) {
                 if (!r.hasCapacity()) continue;
-                int v = r.getTo();
-                int newCost = cur.cost + r.getPrice();
-                if (newCost < dist.getOrDefault(v, Integer.MAX_VALUE)) {
-                    dist.put(v, newCost);
-                    prev.put(v, r);
-                    pq.add(new State(v, newCost));
+                int v        = r.getTo();
+                int newCost  = cur.cost + r.getPrice();
+                int newHops  = cur.hops + 1;
+
+                dist.computeIfAbsent(v, k -> new int[]{Integer.MAX_VALUE,
+                        Integer.MAX_VALUE,
+                        Integer.MAX_VALUE,
+                        Integer.MAX_VALUE});
+                if (newCost < dist.get(v)[newHops]) {
+                    dist.get(v)[newHops] = newCost;
+                    prev.put(v + "," + newHops, r);
+                    pq.add(new State(v, newCost, newHops));
                 }
             }
         }
 
-        if (!prev.containsKey(dst)) return List.of(); //if theres no route
+        int bestHop = -1, bestCost = Integer.MAX_VALUE;
+        int[] dstCosts = dist.get(dst);
+        if (dstCosts != null) {
+            for (int h = 1; h <= maxStops; h++) {
+                if (dstCosts[h] < bestCost) {
+                    bestCost = dstCosts[h];
+                    bestHop  = h;
+                }
+            }
+        }
+        if (bestHop == -1) return List.of();
+
         LinkedList<Road> path = new LinkedList<>();
-        for (int cur = dst; cur != src; ) {
-            Road r = prev.get(cur);
+        int cur   = dst;
+        int hops  = bestHop;
+        while (cur != src) {
+            Road r = prev.get(cur + "," + hops);
             path.addFirst(r);
-            cur = r.getFrom();
+            cur  = r.getFrom();
+            hops--;
         }
         return path;
     }

@@ -49,6 +49,7 @@ public class Road {
             int to = edge[1];
             roads.addAll(makeBidirectional(from, to, rng));
         }
+        AppData.setRoads(roads); //For Accessibility inside app
         return roads;
     }
     private static List<Road> makeBidirectional(int a, int b, Random rng) {

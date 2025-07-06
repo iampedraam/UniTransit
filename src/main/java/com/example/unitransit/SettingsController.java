@@ -75,8 +75,7 @@ public class SettingsController {
                 int toId = destination.getUniversityId();
 
                 // پیدا کردن مسیر مناسب
-                Graph graph = new Graph(AppData.getUniversities(), AppData.getRoads());
-                List<Road> path = graph.bestRoute(fromId, toId);
+                List<Road> path = AppData.getGraph().bestRoute(fromId, toId);
                 controller.initData(fromId, toId, hour, path);
             }
 
