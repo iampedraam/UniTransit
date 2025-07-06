@@ -55,16 +55,14 @@ public class LoginController {
             List<University> universities = datamanagement.loadUniversity();
             AppData.setUniversities(universities);
             List<Road> roads = Road.generateFixedRoads(new Random());
-
-            boolean done = false;
-            while (!done) {
-                Graph graph = new Graph(universities, roads);
-                if (graph.allPairsWithinTwoStops()) {
-                    done = true;
-                    AppData.setGraph(graph);
-                }
+            Graph fullGraph = new Graph(universities, roads);
+            List<Road> mstEdges = fullGraph.computeMST();
+            Graph mstGraph = new Graph(universities, mstEdges);
+            if (mstGraph.allPairsWithinTwoStops()) {
+                AppData.setGraph(mstGraph);
+            } else {
+                AppData.setGraph(fullGraph);
             }
-
 
             welcomeText.setText("Welcome " + user);
             Parent root = null;
