@@ -8,6 +8,7 @@ public class AppData {
     private static List<Road> roads;
     private static List<University> universities;
     private static Graph graph;
+    private static List<Road> shortestPath;
 
     public static List<Road> getRoads() {
         return roads;
@@ -28,5 +29,12 @@ public class AppData {
     }
     public static void setGraph(Graph graph) {
         AppData.graph = graph;
+    }
+
+    public static List<Road> getShortestPath() {
+        return shortestPath;
+    }
+    public static void setShortestPath(List<Road> shortestPath) {
+        AppData.shortestPath = shortestPath;
     }
 }

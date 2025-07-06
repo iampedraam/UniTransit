@@ -43,7 +43,6 @@ public class MapViewController {
         this.time = hour;
         this.path = path;
 
-
         setupUniversityPositions();
         drawUniversities();
         drawRouteBetweenUniversities();

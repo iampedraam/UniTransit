@@ -76,6 +76,7 @@ public class SettingsController {
 
                 // پیدا کردن مسیر مناسب
                 List<Road> path = AppData.getGraph().bestRoute(fromId, toId);
+                AppData.setShortestPath(path);
                 controller.initData(fromId, toId, hour, path);
             }
 

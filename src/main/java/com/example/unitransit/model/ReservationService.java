@@ -12,18 +12,11 @@ public class ReservationService {
     }
 
     public Reservation reserve(Student student, int from, int to) {
-        List<Road> path = graph.bestRoute(from, to);
+        List<Road> path = AppData.getShortestPath();
 
         if (path.isEmpty()) {
             System.out.println("No good path found!!");
             return null;
-        }
-
-        for (Road r : path) {
-            if (!r.hasCapacity()) {
-                System.out.println("Route Full!!");
-                return null;
-            }
         }
 
         for (Road r : path) {
