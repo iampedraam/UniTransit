@@ -6,8 +6,11 @@ import java.util.Random;
 
 public class Road {
     private int from, to, id, capacity, price, open, close;
-    // Open-Close Format: 12 or 16 or 21 etc
+    // Open-Close Format: 12 or 16 or 21 or ...
     // Price in HezarToman
+    private static final int[][] FIXED_ROADS = {
+            {1, 2}, {2, 3}, {2, 4}, {3, 5}, {2, 6}, {2, 7}, {3, 4}, {4, 7}, {1, 7}, {1, 6}, {6, 5}, {5, 4}
+    };
 
     public Road(int from, int to, int capacity, int price, int open, int close) {
         this.from = from;
@@ -39,31 +42,20 @@ public class Road {
     public int getClose() { return close; }
 
 
-    public static List<Road> randomRoads(List<University> universities, double density, Random rng) {
-        final int n = universities.size();
+    public static List<Road> generateFixedRoads(Random rng) {
         List<Road> roads = new ArrayList<>();
-
-        for (int i = 1; i < n; i++) {
-            int parent = rng.nextInt(i);
-            roads.addAll(makeBidirectional(universities.get(parent).getUniversityId(),
-                    universities.get(i).getUniversityId(), rng));
-        }
-        for (int i = 0; i < n; i++) {
-            for (int j = i + 1; j < n; j++) {
-                if (rng.nextDouble() < density) {
-                    roads.addAll(makeBidirectional(
-                            universities.get(i).getUniversityId(),
-                            universities.get(j).getUniversityId(), rng));
-                }
-            }
+        for (int[] edge : FIXED_ROADS) {
+            int from = edge[0];
+            int to = edge[1];
+            roads.addAll(makeBidirectional(from, to, rng));
         }
         return roads;
     }
     private static List<Road> makeBidirectional(int a, int b, Random rng) {
-        int capacity = 1 + rng.nextInt(11);        // 1‑11
-        int price    = 100  + rng.nextInt(51);
-        int open     = 7  + rng.nextInt(6);
-        int close    = 15 + rng.nextInt(6);
+        int capacity = 1 + rng.nextInt(10);
+        int price = 100 + rng.nextInt(151);
+        int open = 6 + rng.nextInt(10);
+        int close = 23 - rng.nextInt(6);
 
         List<Road> pair = new ArrayList<>(2);
         pair.add(new Road(a, b, capacity, price, open, close));

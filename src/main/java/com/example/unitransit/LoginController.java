@@ -56,18 +56,16 @@ public class LoginController {
 
             AppData.setUniversities(universities);
 
-            boolean can=false;
-            while (can==false){
-                List<Road> roads = Road.randomRoads(universities, 0.2, new Random());
-                Graph graph = new Graph(universities, roads);
-                AppData.setRoads(roads);
-                if (graph.allPairsWithinTwoStops()){
-                    can=true;
-                    //graph has all the random roads
-                    Graph mstGraph=new Graph(universities,graph.computeMST());
-                    //mstGraph has only the MST Routes
+            boolean done = false;
+            while (!done) {
+                List<Road> roads = Road.generateFixedRoads(new Random());
+                Graph graph      = new Graph(universities, roads);
+                if (graph.allPairsWithinTwoStops()) {
+                    done = true;
+                    AppData.setRoads(roads);
                 }
             }
+
 
             welcomeText.setText("Welcome " + user);
             Parent root = null;
