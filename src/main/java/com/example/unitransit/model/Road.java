@@ -15,7 +15,7 @@ public class Road {
     public Road(int from, int to, int capacity, int price, int open, int close) {
         this.from = from;
         this.to = to;
-        this.id = from * 10 + to;  // Unique ID based on from/to
+        this.id = from * 10 + to;
         this.capacity = capacity;
         this.price = price;
         this.open = open;
