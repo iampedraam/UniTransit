@@ -87,7 +87,7 @@ public class LoginController {
 
                 Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
                 stage.setScene(new Scene(root));
-                stage.show(); // فراموش نشه
+                stage.show();
             } catch (IOException e) {
                 e.printStackTrace();
             }

@@ -57,7 +57,7 @@ public class SettingsController {
         GetOrigin.getItems().addAll(universities);
         GetDestination.getItems().addAll(universities);
         
-        for (int i = 1; i <= 24; i++) {
+        for (int i = 6; i <= 23; i++) {
             Time.getItems().add(i);
         }
     }
