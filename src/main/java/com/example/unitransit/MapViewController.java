@@ -152,11 +152,6 @@ public class MapViewController {
 
     @FXML
     private void onReservationClick(ActionEvent event) {
-        if (currentStudent == null || reservationService == null) {
-            showDialog("Error", "Student or Reservation Service not initialized.");
-            return;
-        }
-
         if (path == null || path.isEmpty()) {
             showDialog("Reservation Failed", "No valid route available to reserve.");
             return;
