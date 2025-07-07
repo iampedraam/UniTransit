@@ -24,18 +24,11 @@ public class Road {
 
     public int getFrom() { return from; }
     public int getTo() { return to; }
-    public void setId(int id) { this.id = id; }
     public int getId() { return id; }
     public int getCapacity() { return capacity; }
     public boolean hasCapacity() { return capacity > 0; }
     public void decreaseCapacity() {
         capacity--;
-    }
-    public boolean canReserve(){
-        if (capacity == 0)
-            return false;
-        capacity--;
-        return true;
     }
     public int getPrice() { return price; }
     public int getOpen() { return open; }
